@@ -1,2 +1,14 @@
+# Configuración de la carpeta en Windows
 desktop.ini
+
+# Entorno virtual de Python
 .venv
+
+# Configuración de PyLance
+pyproject.toml
+
+# Archivos de tipado
+typings
+
+# Caching
+__pycache__
