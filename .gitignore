@@ -12,3 +12,6 @@ typings
 
 # Caching
 __pycache__
+
+# Variables de entorno
+.env
