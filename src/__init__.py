@@ -12,14 +12,17 @@ import src.routes as router
 
 # JWT
 from flask_jwt_extended import JWTManager
+import src.jwt_config as jwt_config
 
 load_dotenv()
 
 def create_app():
     app = Flask(__name__)
-    jwt = JWTManager(app)
+    
+    # Cargar todas las rutas
     router.load_all_routes()
 
+    # Modularizar rutas
     app.register_blueprint(router.api, url_prefix="/api")
     app.register_blueprint(router.game, url_prefix="/game")
     
@@ -39,5 +42,9 @@ def create_app():
     app.config['MYSQL_DATABASE_PASSWORD'] = getenv("MYSQL_PASSWORD")
     app.config['MYSQL_DATABASE_DB'] = getenv("MYSQL_DB")
     mysql.init_app(app)
+    
+    # Inicializar JWT
+    jwt = JWTManager(app)
+    jwt_config.register_jwt_handlers(jwt)
 
     return app
