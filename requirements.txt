@@ -1,2 +1,5 @@
 flask
 python-dotenv
+flask-mysql
+cryptography
+flask-jwt-extended
