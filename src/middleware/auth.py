@@ -20,12 +20,11 @@ def auth_required(level=1):
 
             # Query, saco primero la ID del usuario con el nombre de usuario, después saco sus roles
             query = """
-            SELECT FROM `USUARIO_ROL`
-            WHERE `USUARIO_ROL`.`ID_USUARIO` = (
-                SELECT `ID_USUARIO` FROM `USUARIO` WHERE `Username` = %s
-            )
+            SELECT * FROM `USUARIO_ROL`
+            WHERE `USUARIO_ROL`.`Usuario_ID` = 
+            (SELECT `ID_Usuario` FROM `USUARIO` WHERE `Username` = %s)
             """
-            with mysql.get_db().cursor as cursor:
+            with mysql.get_db().cursor() as cursor:
                 cursor.execute(query, (username))
                 roles = [r[0] for r in cursor.fetchall()]
             
