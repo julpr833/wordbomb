@@ -15,8 +15,8 @@ def login():
     # Campos del formulario
     data = request.form
 
-    username = data.get('username')
-    password = data.get('password')
+    username = data.get('username', "")
+    password = data.get('password', "")
 
     # Validar existencia del usuario
     validator = Validator()
