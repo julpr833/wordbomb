@@ -92,6 +92,9 @@ CREATE TABLE IF NOT EXISTS `wordbomb`.`ROL` (
   PRIMARY KEY (`ID_Rol`)
 ) ENGINE = InnoDB;
 
+-- Setup default values
+INSERT INTO `wordbomb`.`ROL` VALUES (1, "Usuario"), (2, "Administrador");
+
 -- ============================================================================
 -- TABLE: USUARIO_ROL (User-Role Assignment)
 -- Description: Many-to-many relationship between users and roles
