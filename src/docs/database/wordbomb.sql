@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `wordbomb`.`PALABRA` (
 -- ============================================================================
 
 CREATE TABLE IF NOT EXISTS `wordbomb`.`ROL` (
-  `ID_Rol` INT NOT NULL,
+  `ID_Rol` INT NOT NULL AUTO_INCREMENT,
   `NombreRol` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`ID_Rol`)
 ) ENGINE = InnoDB;
