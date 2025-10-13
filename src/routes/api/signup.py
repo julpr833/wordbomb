@@ -48,14 +48,13 @@ def signup():
     
     with mysql.get_db().cursor() as cursor:
         cursor.execute(query, (username, password, email, get_avatar(username)))
-        
         user_id = cursor.lastrowid  # este es el Usuario_ID recién generado
-
+        mysql.get_db().commit() # Commit para crear el usuario
+    
         # Insertar rol
         query_role = "INSERT INTO `USUARIO_ROL` (`Usuario_ID`, `Rol_ID`) VALUES (%s, %s)"
         cursor.execute(query_role, (user_id, Roles.Usuario.value))
-
-        mysql.get_db().commit()
+        mysql.get_db().commit() # Commit para asignarle el rol por defecto
     
     logger.info(f"El usuario {username} se ha registrado.")
     return {"sucess": "El usuario se ha registrado correctamente."}, 201
