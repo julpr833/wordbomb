@@ -1,6 +1,6 @@
 from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
-from src.database import mysql
+from src.lib.database import mysql
 
 # Acá se me complico porque me tiraba un AssertionError
 # La solución fue meterle el @wraps para persisitir los metadatos

@@ -1,7 +1,7 @@
 from re import match
 
 import bcrypt
-from src.database import mysql
+from src.lib.database import mysql
 
 class Validator:
     def __init__(self):

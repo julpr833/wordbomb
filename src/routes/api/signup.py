@@ -5,7 +5,7 @@ from src.util.avatar import get_avatar
 from src.util.logger import logger
 from src.util.validator import Validator
 from src.util.roles import Roles
-from src.database import mysql
+from src.lib.database import mysql
 from src.middleware.auth import only_guest
 
 @api.route('/auth/signup', methods=['POST'])

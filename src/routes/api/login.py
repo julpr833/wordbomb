@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from src.routes import api
 from src.util.validator import Validator
-from src.database import mysql
+from src.lib.database import mysql
 
 # JWT
 from flask_jwt_extended import create_access_token

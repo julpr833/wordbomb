@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 from os import getenv
 
 # Base de datos
-from src.database import mysql
+from src.lib.database import mysql
 
 # Enrutador
 import src.routes as router
 
 # JWT
 from flask_jwt_extended import JWTManager
-import src.jwt_config as jwt_config
+import src.lib.jwt_config as jwt_config
 
 load_dotenv()
 
