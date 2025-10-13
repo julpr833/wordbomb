@@ -19,7 +19,7 @@ def load_all_routes():
         # Crear nombre del modulo, a routes el concateno <x> con un "." como separador.
         module_name = ".".join(py_file.relative_to(base_path.parent).with_suffix("").parts)
 
-        logger.debug(f"Cargando ruta: {module_name}")
+        logger.success(f"Cargando ruta: {module_name}")
 
         # Especificar a Python el nombre del módulo y dónde cargarlo
         spec = importlib.util.spec_from_file_location(module_name, py_file)
