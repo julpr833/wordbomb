@@ -57,4 +57,4 @@ def signup():
         mysql.get_db().commit() # Commit para asignarle el rol por defecto
     
     logger.info(f"El usuario {username} se ha registrado.")
-    return {"sucess": "El usuario se ha registrado correctamente."}, 201
+    return {"success": "El usuario se ha registrado correctamente."}, 201
