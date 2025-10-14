@@ -79,5 +79,27 @@ class Validator:
     def correct_password(self, password: str, hashed_password: str) -> bool:
         return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
     
+    def is_valid_word(self, word: str) -> bool:
+        if len(word) < 2:
+            self.errors["word_length"] = "La palabra debe tener al menos 2 letras."
+            return False
+        if not word.isalpha():
+            self.errors["word_alpha"] = "La palabra debe contener solo letras."
+            return False
+        return True
+    
+    def word_exists_id(self, word_id: int) -> bool | str:
+        with mysql.get_db().cursor() as cursor:
+            
+            cursor.execute("SELECT `Palabra` FROM `PALABRA` WHERE `ID_Palabra` = %s", (word_id))
+            result = cursor.fetchone()
+            
+            if result is None:
+                self.errors["word_exists"] = "La palabra no existe."
+                return False
+            
+            word = result[0]
+        return word
+    
     def get_errors(self):
         return self.errors
