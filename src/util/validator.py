@@ -86,12 +86,28 @@ class Validator:
         if not word.isalpha():
             self.errors["word_alpha"] = "La palabra debe contener solo letras."
             return False
+        if any(char in word for char in 'áéíóúÁÉÍÓÚ') or any(char in word for char in 'ñÑ'):
+            self.errors["word_accents"] = "La palabra no debe contener acentos."
+            return False
         return True
     
     def word_exists_id(self, word_id: int) -> bool | str:
         with mysql.get_db().cursor() as cursor:
             
             cursor.execute("SELECT `Palabra` FROM `PALABRA` WHERE `ID_Palabra` = %s", (word_id))
+            result = cursor.fetchone()
+            
+            if result is None:
+                self.errors["word_exists"] = "La palabra no existe."
+                return False
+            
+            word = result[0]
+        return word
+    
+    def word_exists(self, word: str) -> bool | str:
+        with mysql.get_db().cursor() as cursor:
+            
+            cursor.execute("SELECT `Palabra` FROM `PALABRA` WHERE `Palabra` = %s", (word))
             result = cursor.fetchone()
             
             if result is None:

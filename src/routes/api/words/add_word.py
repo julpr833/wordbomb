@@ -18,6 +18,9 @@ def add_word(username):
     if not validator.is_valid_word(word):
         return validator.get_errors(), 400  
     
+    if validator.word_exists(word):
+        return {"error": "La palabra ya existe"}, 400
+    
     # Inserto la palabra    
     with mysql.get_db().cursor() as cursor:
         cursor.execute("INSERT INTO `PALABRA` (`Palabra`) VALUES (%s)", (word))
