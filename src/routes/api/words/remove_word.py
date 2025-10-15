@@ -1,8 +1,9 @@
 from flask import request
 from src.routes import api
 from src.middleware.auth import auth_required
+from src.util.audit_actions import AuditActions
 from src.util.validator import Validator
-from src.lib.database import mysql
+from src.lib.database import mysql, get_user_id
 
 @api.route('/words/remove-word', methods=['DELETE'])
 @auth_required(level=2)
@@ -24,6 +25,8 @@ def remove_word(username):
     # Eliminamos la palabra
     with mysql.get_db().cursor() as cursor:
         cursor.execute("DELETE FROM `PALABRA` WHERE `ID_Palabra` = %s", (word_id))
+        user_id = get_user_id(username)
+        cursor.execute("INSERT INTO `REGISTRO_AUDITORIA` (`Administrador_ID`, `Accion_ID`, `FechaRegistro`) VALUES (%s, %s, NOW())", (user_id, AuditActions.REMOVE_WORD.value))
         mysql.get_db().commit()
         
     return {"success": f"Palabra {word} eliminada correctamente."}, 201
