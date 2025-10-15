@@ -185,6 +185,13 @@ CREATE TABLE IF NOT EXISTS `wordbomb`.`ACCION_ADMINISTRATIVA` (
   PRIMARY KEY (`ID_Accion`)
 ) ENGINE = InnoDB;
 
+INSERT INTO ACCION_ADMINISTRATIVA (NombreAccion) 
+VALUES ("Añadio palabra"), 
+       ("Edito palabra"), 
+       ("Elimino palabra"), 
+       ("Baneó usuario"), 
+       ("Desbaneó usuario");
+
 -- ============================================================================
 -- TABLE: REGISTRO_AUDITORIA (Audit Log)
 -- Description: Tracks administrative actions performed by administrators
