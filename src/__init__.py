@@ -14,6 +14,10 @@ import src.routes as router
 from flask_jwt_extended import JWTManager
 import src.lib.jwt_config as jwt_config
 
+# Juego
+from src.lib.rooms import Rooms
+from src.lib.words import Words
+
 load_dotenv()
 
 def create_app():
@@ -46,5 +50,12 @@ def create_app():
     # Inicializar JWT
     jwt = JWTManager(app)
     jwt_config.register_jwt_handlers(jwt)
+    
+    # Inicializar juego
+    # Perdon profe, pero esto es demasiado hacky
+    # Pero bueno, funciona
+    with app.test_request_context():
+        Rooms() # Iniciar Singleton
+        Words() # Iniciar Singleton
 
     return app
