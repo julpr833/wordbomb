@@ -2,6 +2,7 @@ from re import match
 
 import bcrypt
 from src.lib.database import mysql
+from src.lib.words import Words
 
 class Validator:
     def __init__(self):
@@ -92,30 +93,18 @@ class Validator:
         return True
     
     def word_exists_id(self, word_id: int) -> bool | str:
-        with mysql.get_db().cursor() as cursor:
+        word = Words().get_word_by_id(word_id)
             
-            cursor.execute("SELECT `Palabra` FROM `PALABRA` WHERE `ID_Palabra` = %s", (word_id))
-            result = cursor.fetchone()
-            
-            if result is None:
-                self.errors["word_exists"] = "La palabra no existe."
-                return False
-            
-            word = result[0]
+        if word is False:
+            self.errors["word_exists"] = "La palabra no existe."
+            return False
         return word
     
     def word_exists(self, word: str) -> bool | str:
         with mysql.get_db().cursor() as cursor:
             
-            cursor.execute("SELECT `Palabra` FROM `PALABRA` WHERE `Palabra` = %s", (word))
-            result = cursor.fetchone()
-            
-            if result is None:
-                self.errors["word_exists"] = "La palabra no existe."
-                return False
-            
-            word = result[0]
-        return word
+            result = Words().get_word(word)
+        return result
     
     def get_errors(self):
         return self.errors

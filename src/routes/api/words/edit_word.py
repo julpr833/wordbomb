@@ -1,9 +1,11 @@
 from flask import request
 from src.routes import api
 from src.middleware.auth import auth_required
+from src.util.logger import logger
 from src.util.audit_actions import AuditActions
 from src.util.validator import Validator
 from src.lib.database import mysql, get_user_id
+from src.lib.words import Words
 
 @api.route('/words/edit-word', methods=['PATCH'])
 @auth_required(level=2)
@@ -13,10 +15,16 @@ def edit_word(username):
     word_id = data.get('word_id', None)
     new_word = data.get('new_word', None)
     
+    # Validar que word_id sea un entero
+    try:
+        int(word_id)
+    except ValueError:
+        return {"error": "word_id debe ser un entero"}, 400
+    
     # La funcion word_exists_id valida que la palabra exista
     # En caso de que exista, la devuelve, de lo contrario devuelve False
     validator = Validator()
-    word = validator.word_exists_id(word_id)
+    word = validator.word_exists_id(int(word_id))
     
     # Validamos la nueva palabra
     if not validator.is_valid_word(new_word):
@@ -29,7 +37,8 @@ def edit_word(username):
     
     # Eliminamos la palabra
     with mysql.get_db().cursor() as cursor:
-        cursor.execute("UPDATE `PALABRA` SET `Palabra` = %s WHERE `ID_Palabra` = %s", (new_word, word_id))
+        words = Words()
+        words.edit_word(word_id, new_word)
         user_id = get_user_id(username)
         cursor.execute("INSERT INTO `REGISTRO_AUDITORIA` (`Administrador_ID`, `Accion_ID`, `FechaRegistro`) VALUES (%s, %s, NOW())", (user_id, AuditActions.EDIT_WORD.value))
         mysql.get_db().commit()

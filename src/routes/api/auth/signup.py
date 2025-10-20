@@ -4,7 +4,7 @@ from src.routes import api
 from src.util.avatar import get_avatar
 from src.util.logger import logger
 from src.util.validator import Validator
-from src.util.roles import Roles
+from src.lib.roles import Roles
 from src.lib.database import mysql
 from src.middleware.auth import only_guest
 
