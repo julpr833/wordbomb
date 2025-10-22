@@ -18,10 +18,12 @@ def login():
     username = data.get('username', "")
     password = data.get('password', "")
 
+    print(f"Username: {username}, Password: {password}")
+
     # Validar existencia del usuario
     validator = Validator()
     if not validator.username_exists(username):
-        return {"error": "El nombre de usuario no existe"}, 404
+        return {"error": "El nombre de usuario no existe"}, 400
     
     # Traer la contraseña hasheada desde la base de datos
     with mysql.get_db().cursor() as cursor:
@@ -32,6 +34,23 @@ def login():
     if not validator.correct_password(password, hashed_password):
         return {"error": "La contraseña es incorrecta"}, 401
     
+    # Traer el perfil del usuario de la base de datos para devolverlo
+    with mysql.get_db().cursor() as cursor:
+        query = """
+        SELECT `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`
+        FROM `USUARIO` 
+        WHERE `Username` = %s
+        """
+        cursor.execute(query, username)
+        userinfo = cursor.fetchone()
+        userinfo = {
+            "username": userinfo[0],
+            "email": userinfo[1],
+            "avatar": userinfo[2],
+            "registration_date": userinfo[3],
+            "banned": userinfo[4]
+        }
+    
     # Crear la sesión para el usuario
     access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
+    return jsonify(user=userinfo, token=access_token)
