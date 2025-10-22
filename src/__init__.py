@@ -18,6 +18,13 @@ import src.lib.jwt_config as jwt_config
 from src.lib.rooms import Rooms
 from src.lib.words import Words
 
+# SocketIO
+from flask_socketio import SocketIO
+socketio = SocketIO()
+
+# CORS
+from flask_cors import CORS
+
 load_dotenv()
 
 def create_app():
@@ -45,15 +52,30 @@ def create_app():
     app.config['MYSQL_DATABASE_USER'] =  getenv("MYSQL_USER")
     app.config['MYSQL_DATABASE_PASSWORD'] = getenv("MYSQL_PASSWORD")
     app.config['MYSQL_DATABASE_DB'] = getenv("MYSQL_DB")
+    
+    # Iniciar base de datos
     mysql.init_app(app)
     
     # Inicializar JWT
     jwt = JWTManager(app)
     jwt_config.register_jwt_handlers(jwt)
     
+    # Iniciar WS
+    socketio.init_app(app)
+    
+    # CORS
+    CORS(app, 
+        resources=
+        {r"/*": 
+            {
+                "origins": getenv("FRONTEND_URL"),
+                "methods": ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+                "allowed_headers": ["Content-Type", "Authorization"],
+            }
+        })
+    
     # Inicializar juego
-    # Perdon profe, pero esto es demasiado hacky
-    # Pero bueno, funciona
+    # ajajaj a ver esto es muy terrorista pero no queria refactorizar todo :v
     with app.test_request_context():
         Rooms() # Iniciar Singleton
         Words() # Iniciar Singleton
