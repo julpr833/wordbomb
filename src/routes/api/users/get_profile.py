@@ -9,13 +9,6 @@ from src.middleware.auth import auth_required
 @api.route('/users/profile', methods=['GET'])
 @auth_required(level=1) # Requiere permisos de usuario logueado
 def get_profile(username):
-    # Campos del formulario
-    user_to_get = request.args.get('username', '')
-
-    # Asegurar que solo puede acceder a su perfil
-    if user_to_get != username:
-        return {"error": "No tienes permiso para acceder a este perfil"}, 403
-
     # Validar existencia del usuario
     validator = Validator()
     if not validator.username_exists(username):
@@ -30,7 +23,7 @@ def get_profile(username):
     
     # Enviar la información al perfil luego de ejecutar la consulta
     with mysql.get_db().cursor() as cursor:
-        cursor.execute(query, user_to_get)
+        cursor.execute(query, username)
         userinfo = cursor.fetchone()
         userinfo = {
             "username": userinfo[0],
