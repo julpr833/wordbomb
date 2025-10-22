@@ -28,7 +28,13 @@ class Rooms():
             code = "".join(random.choice(ascii_uppercase) for _ in range(6))
         return code
     
-    def add_room(self, creator, gamemode=Gamemodes.CLASSIC.value, difficulty=Difficulty.NORMAL.value, lives=3, max_players=4):
+    def add_room(self, 
+                creator: str, 
+                gamemode: int = Gamemodes.CLASSIC.value, 
+                difficulty: int = Difficulty.NORMAL.value, 
+                lives: int = 3, 
+                max_players: int = 4
+            ):
         code = self.__gen_room_code__()
         self.rooms[code] = {
             "players": [], 
@@ -44,9 +50,20 @@ class Rooms():
             "creation_time": int(round(time.time() * 1000))
         }
         self.room_count += 1
+        return code
+    
+    def get_all_rooms(self):
+        return self.rooms
+    
+    def get_room_by_code(self, code):
+        if code in self.rooms:
+            return self.rooms[code]
+        return None
     
     def join_player(self, code, username):
         if code in self.rooms:
+            if len(self.rooms[code]["players"]) >= self.rooms[code]["max_players"]:
+                return False
             self.rooms[code]["players"].append({
                 "username": username,
                 "points": 0
