@@ -16,7 +16,7 @@ def get_profile(username):
     
     # Traer el perfil desde la base de datos
     query = """
-    SELECT `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`
+    SELECT `ID_Usuario`, `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`
     FROM `USUARIO` 
     WHERE `Username` = %s
     """
@@ -26,11 +26,12 @@ def get_profile(username):
         cursor.execute(query, username)
         userinfo = cursor.fetchone()
         userinfo = {
-            "username": userinfo[0],
-            "email": userinfo[1],
-            "avatar_url": userinfo[2],
-            "registration_date": userinfo[3],
-            "banned": userinfo[4]
+            "id": userinfo[0],
+            "username": userinfo[1],
+            "email": userinfo[2],
+            "avatar_url": userinfo[3],
+            "registration_date": userinfo[4],
+            "banned": userinfo[5]
         }
     
     return jsonify(userinfo)

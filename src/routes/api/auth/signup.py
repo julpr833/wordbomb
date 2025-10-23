@@ -1,5 +1,5 @@
 import bcrypt
-from flask import request
+from flask import jsonify, request
 from src.routes import api
 from src.util.avatar import get_avatar
 from src.util.logger import logger
@@ -33,7 +33,8 @@ def signup():
     
     if validator.get_errors() != {}:
         errors = validator.get_errors()
-        return errors, 400
+        print(errors)
+        return jsonify(error=errors), 400
     
     # Hashear la contraseña con <<bcrypt>>
     password = password.encode('utf-8')

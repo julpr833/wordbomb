@@ -34,5 +34,6 @@ def get_stats(username):
         result = cursor.fetchall()
         userstats["wins"] = result[0][0]
         userstats["winrate"] = (result[0][0] / (result[0][1] if result[0][1] != 0 else 1) * 100)
+        userstats["total_games"] = result[0][1]
     
     return jsonify(userstats)
