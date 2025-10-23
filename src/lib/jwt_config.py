@@ -1,3 +1,5 @@
+revoked_tokens = set()
+
 def register_jwt_handlers(jwt):
     @jwt.unauthorized_loader
     def unauthorized_response(callback):
@@ -14,3 +16,8 @@ def register_jwt_handlers(jwt):
     @jwt.revoked_token_loader
     def revoked_token_response(jwt_header, jwt_payload):
         return {"error": "El token fue revocado."}, 401
+    
+    @jwt.token_in_blocklist_loader
+    def check_if_token_revoked(jwt_header, jwt_payload):
+        jti = jwt_payload['jti']  # JWT ID
+        return jti in revoked_tokens
