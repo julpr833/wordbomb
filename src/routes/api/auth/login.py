@@ -18,8 +18,6 @@ def login():
     username = data.get('username', "")
     password = data.get('password', "")
 
-    print(f"Username: {username}, Password: {password}")
-
     # Validar existencia del usuario
     validator = Validator()
     if not validator.username_exists(username):
