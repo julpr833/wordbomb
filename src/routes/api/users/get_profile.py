@@ -16,8 +16,9 @@ def get_profile(username):
     
     # Traer el perfil desde la base de datos
     query = """
-    SELECT `ID_Usuario`, `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`
+    SELECT `ID_Usuario`, `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`, `Rol_ID`
     FROM `USUARIO` 
+    LEFT JOIN `USUARIO_ROL` ON `USUARIO`.`ID_Usuario` = `USUARIO_ROL`.`Usuario_ID`
     WHERE `Username` = %s
     """
     
@@ -31,7 +32,8 @@ def get_profile(username):
             "email": userinfo[2],
             "avatar_url": userinfo[3],
             "registration_date": userinfo[4],
-            "banned": userinfo[5]
+            "banned": userinfo[5],
+            "role": userinfo[6]
         }
     
     return jsonify(userinfo)

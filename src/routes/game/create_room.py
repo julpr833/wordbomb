@@ -14,12 +14,11 @@ def create_room(username):
     
     try:
         room_lives = int(data.get('lives', 3))
-        room_maxplayers = int(data.get('max_players', 4))
+        room_maxplayers = int(data.get('max_players', 4))    
+        room_gamemode = int(data.get('game_mode', Gamemodes.CLASSIC.value))
+        room_difficulty = int(data.get('difficulty', Difficulty.NORMAL.value))
     except ValueError:
-        return {"error": "Los campos lives y max_players deben ser enteros"}, 400
-    
-    room_gamemode = data.get('game_mode', Gamemodes.CLASSIC.value)
-    room_difficulty = data.get('difficulty', Difficulty.NORMAL.value)
+        return {"error": "Los parámetros deben ser enteros"}, 400
     
     # Validaciones básicas
     if room_lives < 1 or room_lives > 10:

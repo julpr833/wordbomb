@@ -34,7 +34,7 @@ def signup():
     if validator.get_errors() != {}:
         errors = validator.get_errors()
         print(errors)
-        return jsonify(error=errors), 400
+        return jsonify(errors), 400
     
     # Hashear la contraseña con <<bcrypt>>
     password = password.encode('utf-8')

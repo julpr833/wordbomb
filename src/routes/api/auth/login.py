@@ -30,13 +30,14 @@ def login():
     
     # Validar la contraseña
     if not validator.correct_password(password, hashed_password):
-        return {"error": "La contraseña es incorrecta"}, 401
+        return {"error": "La contraseña es incorrecta"}, 400
     
     # Traer el perfil del usuario de la base de datos para devolverlo
     with mysql.get_db().cursor() as cursor:
         query = """
-        SELECT `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`
+        SELECT `Username`, `Correo`, `Avatar_URL`, `FechaRegistro`, `Vetado`, `Rol_ID`
         FROM `USUARIO` 
+        LEFT JOIN `USUARIO_ROL` ON `USUARIO`.`ID_Usuario` = `USUARIO_ROL`.`Usuario_ID`
         WHERE `Username` = %s
         """
         cursor.execute(query, username)
@@ -46,7 +47,8 @@ def login():
             "email": userinfo[1],
             "avatar": userinfo[2],
             "registration_date": userinfo[3],
-            "banned": userinfo[4]
+            "banned": userinfo[4],
+            "role": userinfo[5]
         }
     
     # Crear la sesión para el usuario

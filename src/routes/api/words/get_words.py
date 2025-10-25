@@ -8,4 +8,4 @@ from src.lib.words import Words
 def get_words(username):
     words = Words()
     all_words = words.get_words()
-    return jsonify(all_words), 200
+    return jsonify(words=all_words), 200

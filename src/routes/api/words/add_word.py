@@ -1,4 +1,4 @@
-from flask import request
+from flask import jsonify, request
 from src.routes import api
 from src.middleware.auth import auth_required
 from src.util.validator import Validator
@@ -13,7 +13,6 @@ def add_word(username):
     
     # Traigo la palabra del formulario
     word = data.get('word', "")
-    
     validator = Validator()
     
     # Validaciones, no debe tener espacios, ser solo letras y tener al menos 2 letras
@@ -21,7 +20,7 @@ def add_word(username):
         return validator.get_errors(), 400  
     
     if validator.word_exists(word):
-        return {"error": "La palabra ya existe"}, 400
+        return {"word_exists": "La palabra ya existe"}, 400
     
     # Inserto la palabra    
     with mysql.get_db().cursor() as cursor:
@@ -31,4 +30,4 @@ def add_word(username):
         cursor.execute("INSERT INTO `REGISTRO_AUDITORIA` (`Administrador_ID`, `Accion_ID`, `FechaRegistro`) VALUES (%s, %s, NOW())", (user_id, AuditActions.ADD_WORD.value))
         mysql.get_db().commit()
         
-    return {"success": f"Palabra {word} añadida correctamente."}, 201
+    return jsonify(words=words.get_words()), 201

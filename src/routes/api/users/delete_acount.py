@@ -1,7 +1,5 @@
-import bcrypt
 from flask import request
 from src.routes import api
-from src.util.logger import logger
 from src.util.validator import Validator
 from src.lib.database import mysql
 from src.middleware.auth import auth_required
@@ -26,7 +24,7 @@ def delete_account(username):
     
     # Validar la contraseña
     if not validator.correct_password(password, hashed_password):
-        return {"error": "La contraseña es incorrecta"}, 401
+        return {"error": "La contraseña es incorrecta"}, 400
 
     # Eliminar la cuenta
     with mysql.get_db().cursor() as cursor:
