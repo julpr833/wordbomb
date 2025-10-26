@@ -322,16 +322,6 @@ const socket = io('http://localhost:7777', {
 - `player_eliminated` - Jugador eliminado
 - `game_ended` - Juego terminado
 
-### Cliente de Prueba
-
-Incluye un cliente HTML de prueba en `test_client.html`:
-
-1. Inicia el servidor: `python run.py`
-2. Abre `test_client.html` en tu navegador
-3. Conecta al servidor en `http://localhost:7777`
-4. Ingresa nombre de usuario y código de sala
-5. ¡Juega!
-
 ### Documentación Completa
 
 Ver **[GAME_DOCUMENTATION.md](GAME_DOCUMENTATION.md)** para:
