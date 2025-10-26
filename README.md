@@ -239,17 +239,17 @@ python run.py
 > Nota:  
 > Las rutas de login y registro solo pueden usarlas usuarios no logueados (only_guest).
 
-## 🎮 Sistema de Juego en Tiempo Real (Flask-SocketIO)
+## Sistema de Juego en Tiempo Real (Flask-SocketIO)
 
 ### Características del Juego
 
-- ✅ **3 Modos de Juego**: Classic, Reversed, Hardcore
-- ✅ **3 Niveles de Dificultad**: Easy, Normal, Hard
-- ✅ **Multijugador en Tiempo Real**: Hasta 10 jugadores por sala
-- ✅ **Sistema de Vidas**: Configurable de 1 a 10 vidas
-- ✅ **Sistema de Puntos**: Basado en longitud de palabra y velocidad
-- ✅ **Timers Automáticos**: Límite de tiempo por turno (10-15 segundos)
-- ✅ **Validación de Palabras**: Diccionario integrado en base de datos
+-  **3 Modos de Juego**: Classic, Reversed, Hardcore
+-  **3 Niveles de Dificultad**: Easy, Normal, Hard
+-  **Multijugador en Tiempo Real**: Hasta 10 jugadores por sala
+-  **Sistema de Vidas**: Configurable de 1 a 10 vidas
+-  **Sistema de Puntos**: Basado en longitud de palabra y velocidad
+-  **Timers Automáticos**: Límite de tiempo por turno (10-15 segundos)
+-  **Validación de Palabras**: Diccionario integrado en base de datos
 
 ### Modos de Juego
 
