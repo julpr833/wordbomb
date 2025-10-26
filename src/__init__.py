@@ -6,6 +6,7 @@ from os import getenv
 
 # Base de datos
 from src.lib.database import mysql
+import pymysql.cursors
 
 # Enrutador
 import src.routes as router
@@ -52,6 +53,7 @@ def create_app():
     app.config['MYSQL_DATABASE_USER'] =  getenv("MYSQL_USER")
     app.config['MYSQL_DATABASE_PASSWORD'] = getenv("MYSQL_PASSWORD")
     app.config['MYSQL_DATABASE_DB'] = getenv("MYSQL_DB")
+    app.config['MYSQL_DATABASE_CURSORCLASS'] = pymysql.cursors.DictCursor  # Devolver diccionarios
     
     # Iniciar base de datos
     mysql.init_app(app)
@@ -61,7 +63,11 @@ def create_app():
     jwt_config.register_jwt_handlers(jwt)
     
     # Iniciar WS
-    socketio.init_app(app)
+    socketio.init_app(app, cors_allowed_origins=getenv("FRONTEND_URL"))
+    
+    # Inicializar eventos de SocketIO
+    from src.events import init_socketio_events
+    init_socketio_events()
     
     # CORS
     CORS(app, 
@@ -79,5 +85,9 @@ def create_app():
     with app.test_request_context():
         Rooms() # Iniciar Singleton
         Words() # Iniciar Singleton
+    
+    # Guardar referencia a la app DESPUÉS de inicializar
+    rooms = Rooms()
+    rooms.set_app(app)
 
     return app

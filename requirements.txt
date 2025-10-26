@@ -6,3 +6,6 @@ flask-jwt-extended
 colorama
 bcrypt
 flask-socketio
+flask-cors
+python-socketio
+eventlet
