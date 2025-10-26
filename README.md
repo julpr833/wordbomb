@@ -143,11 +143,6 @@ MYSQL_DB=wordbomb
 JWT_SECRET_KEY=otra_clave_secreta
 ```
 
-### Producción con Gunicorn
-```bash
-gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 run:app
-```
-
 ## Endpoints de la API
 
 ### Autenticación
@@ -175,15 +170,11 @@ gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 run:app
 - `word_accepted` - Palabra correcta
 - `word_rejected` - Palabra incorrecta
 - `game_over` - Fin del juego
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
+  
 ---
 
 <div align="center">
-    Desarrollado por [Tu Nombre] - 2025
+    Desarrollado por Call of Code - 2025
 </div>
 > **auth.py**: Decoradores
 
