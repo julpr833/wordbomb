@@ -1,10 +1,10 @@
 # Word Bomb - Documentación del Juego
 
-## 🎮 Descripción General
+## Descripción General
 
 Word Bomb es un juego multijugador en tiempo real inspirado en jklm.fun donde los jugadores deben escribir palabras que cumplan con ciertos requisitos antes de que se acabe el tiempo.
 
-## 🎯 Modos de Juego
+## Modos de Juego
 
 ### 1. **CLASSIC (Clásico)**
 - Los jugadores reciben una secuencia de letras (ej: "BO")
@@ -21,7 +21,7 @@ Word Bomb es un juego multijugador en tiempo real inspirado en jklm.fun donde lo
 - Deben escribir una palabra que coincida exactamente con ese patrón
 - Ejemplo: Para "_O_B_" → "BOMBA" (5 letras, O en pos 2, B en pos 4)
 
-## 📊 Dificultades
+## Dificultades
 
 ### EASY (Fácil)
 - **Tiempo por turno:** 15 segundos
@@ -74,7 +74,7 @@ El juego termina cuando:
 - Solo queda 1 jugador vivo (es el ganador)
 - Todos los jugadores son eliminados (gana quien tenga más puntos)
 
-## 🔌 Eventos de SocketIO
+## Eventos de SocketIO
 
 ### Eventos del Cliente → Servidor
 
@@ -247,7 +247,7 @@ socket.on('error', (data) => {
 });
 ```
 
-## 🚀 Cómo Usar
+## Cómo Usar
 
 ### 1. Instalar Dependencias
 ```bash
@@ -300,7 +300,7 @@ socket.on('new_turn', (data) => {
 });
 ```
 
-## 🎨 Ejemplo de Flujo de Juego
+## Ejemplo de Flujo de Juego
 
 1. **Creación de Sala** (HTTP POST)
    - Usuario crea sala con configuración
@@ -332,7 +332,7 @@ socket.on('new_turn', (data) => {
    - Se muestra ganador y estadísticas
    - Se guarda en base de datos
 
-## 📝 Notas Importantes
+## Notas Importantes
 
 - El servidor maneja automáticamente los timeouts de turnos
 - Las palabras usadas se guardan por partida (no se pueden repetir)
@@ -340,7 +340,7 @@ socket.on('new_turn', (data) => {
 - El creador de la sala es el único que puede iniciar el juego
 - Las salas se eliminan automáticamente al finalizar el juego
 
-## 🐛 Debugging
+## Debugging
 
 Para ver logs del servidor:
 ```python
@@ -350,7 +350,7 @@ print(f"{username} se unió a la sala {room_code}")
 print(f"Juego iniciado en sala {room_code}")
 ```
 
-## 🔒 Seguridad
+## Seguridad
 
 - Autenticación JWT requerida para crear/unirse a salas
 - Validación de permisos (solo creador puede iniciar)

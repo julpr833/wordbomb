@@ -143,11 +143,6 @@ MYSQL_DB=wordbomb
 JWT_SECRET_KEY=otra_clave_secreta
 ```
 
-### Producción con Gunicorn
-```bash
-gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 run:app
-```
-
 ## Endpoints de la API
 
 ### Autenticación
@@ -175,15 +170,11 @@ gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 run:app
 - `word_accepted` - Palabra correcta
 - `word_rejected` - Palabra incorrecta
 - `game_over` - Fin del juego
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
+  
 ---
 
 <div align="center">
-    Desarrollado por [Tu Nombre] - 2025
+    Desarrollado por Call of Code - 2025
 </div>
 > **auth.py**: Decoradores
 
@@ -248,17 +239,17 @@ python run.py
 > Nota:  
 > Las rutas de login y registro solo pueden usarlas usuarios no logueados (only_guest).
 
-## 🎮 Sistema de Juego en Tiempo Real (Flask-SocketIO)
+## Sistema de Juego en Tiempo Real (Flask-SocketIO)
 
 ### Características del Juego
 
-- ✅ **3 Modos de Juego**: Classic, Reversed, Hardcore
-- ✅ **3 Niveles de Dificultad**: Easy, Normal, Hard
-- ✅ **Multijugador en Tiempo Real**: Hasta 10 jugadores por sala
-- ✅ **Sistema de Vidas**: Configurable de 1 a 10 vidas
-- ✅ **Sistema de Puntos**: Basado en longitud de palabra y velocidad
-- ✅ **Timers Automáticos**: Límite de tiempo por turno (10-15 segundos)
-- ✅ **Validación de Palabras**: Diccionario integrado en base de datos
+-  **3 Modos de Juego**: Classic, Reversed, Hardcore
+-  **3 Niveles de Dificultad**: Easy, Normal, Hard
+-  **Multijugador en Tiempo Real**: Hasta 10 jugadores por sala
+-  **Sistema de Vidas**: Configurable de 1 a 10 vidas
+-  **Sistema de Puntos**: Basado en longitud de palabra y velocidad
+-  **Timers Automáticos**: Límite de tiempo por turno (10-15 segundos)
+-  **Validación de Palabras**: Diccionario integrado en base de datos
 
 ### Modos de Juego
 
@@ -330,16 +321,6 @@ const socket = io('http://localhost:7777', {
 - `player_timeout` - Se acabó el tiempo
 - `player_eliminated` - Jugador eliminado
 - `game_ended` - Juego terminado
-
-### Cliente de Prueba
-
-Incluye un cliente HTML de prueba en `test_client.html`:
-
-1. Inicia el servidor: `python run.py`
-2. Abre `test_client.html` en tu navegador
-3. Conecta al servidor en `http://localhost:7777`
-4. Ingresa nombre de usuario y código de sala
-5. ¡Juega!
 
 ### Documentación Completa
 
